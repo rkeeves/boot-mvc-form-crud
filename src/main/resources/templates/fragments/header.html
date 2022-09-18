@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+  <header>
+    <th:block th:fragment="navbar">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item my-1">
+                <a class="nav-link active" aria-current="page" th:href="@{~/}">
+                  <i class="fa-solid fa-house"></i><span class="ms-1">Home</span>
+                </a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link active" aria-current="page" th:href="@{~/todo/list}">
+                  <i class="fa-solid fa-list-check"></i><span class="ms-1">Todos</span>
+                </a>
+              </li>
+              <li sec:authorize="hasRole('ADMIN')" class="nav-item my-1">
+                <a class="nav-link active" aria-current="page" th:href="@{~/account/list}">
+                  <i class="fa-solid fa-user"></i><span class="ms-1">Accounts</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="text-white mx-3">
+            <i class="fa-solid" th:classappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? fa-user-tie : fa-user"></i><span class="ms-2" th:text ="${#authentication.getName()}"></span>
+          </div>
+          <div class="nav navbar-nav navbar-right">
+            <form class="d-flex pull-left" th:action="@{~/logout}" method="post">
+              <button class="btn btn-outline-light" type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </th:block>
+  </header>
+</body>
+</html>

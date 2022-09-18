@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Account List</title>
+    <meta name="description" content="Account List">
+    <th:block th:replace="fragments/head :: metas"/>
+    <th:block th:replace="fragments/head :: css"/>
+</head>
+<body>
+<header>
+    <th:block th:replace="fragments/header :: navbar"/>
+</header>
+<main>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-12 col-md-6">
+                <div class="card bg-muted shadow my-4">
+                    <div class="card-body">
+                        <h1 class="card-title my-3">Accounts</h1>
+                        <div th:if="${param.error}" class="mb-3">
+                            <p class="text-danger">Invalid action</p>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="w-auto">Username</th>
+                                <th class="w-75">Role</th>
+                                <th class="w-auto">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="account : ${accountListDto.accountDtos}">
+                                <td>
+                                   <span th:text="${account.username}"></span>
+                                </td>
+                                <td>
+                                    <i class="fa-solid" th:classappend="${account.admin} ? fa-user-tie : fa-user"></i>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <form method="post"
+                                              th:action="@{~/account/delete/{accountId}(accountId=${account.id})}">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <th:block th:replace="fragments/footer :: footnote"/>
+</footer>
+<th:block th:replace="fragments/scripts :: global-js"/>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+<footer>
+    <th:block th:fragment="footnote">
+        <div class="container d-flex justify-content-center text-muted" style="background-color: #f5f5f5;">
+            <span th:text="${@quoteService.quote()}">It should've been cat pictures, I know...</span>
+        </div>
+    </th:block>
+</footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Sign in</title>
+    <meta name="description" content="Sign in">
+    <th:block th:replace="fragments/head :: metas"/>
+    <th:block th:replace="fragments/head :: css"/>
+</head>
+<body>
+<header>
+</header>
+<main>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-sm-10 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/signin}" method="post">
+                            <div class="d-flex justify-content-center mb-3">
+                                <h1 class="h3">Login</h1>
+                            </div>
+                            <div>
+                                <p th:if="${param.error}" class="text-danger">Bad credentials</p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="visually-hidden">Username</label>
+                                <input id="username" name="username" type="text" class="form-control" placeholder="Username" required autofocus>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="visually-hidden">Password</label>
+                                <input  id="password" name="password" type="password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div class="input-group">
+                                <button class="btn btn-lg btn-primary btn-block flex-fill" type="submit">Sign in</button>
+                            </div>
+                        </form>
+                        <hr class="my-3"/>
+                        <a th:href="@{/signup}" class="link-secondary">No account yet? Sign up!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</main>
+<footer>
+    <th:block th:replace="fragments/footer :: footnote"/>
+</footer>
+<th:block th:replace="fragments/scripts :: global-js"/>
+</body>
+</html>

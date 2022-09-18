@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Sign up</title>
+    <meta name="description" content="Sign up">
+    <th:block th:replace="fragments/head :: metas"/>
+    <th:block th:replace="fragments/head :: css"/>
+</head>
+<body>
+<header>
+</header>
+<main>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-sm-10 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/signup}" method="post" th:object="${signupDto}" novalidate>
+                            <div class="d-flex justify-content-center mb-3">
+                                <h1 class="h3">Sign up</h1>
+                            </div>
+                            <div th:if="${#fields.hasErrors('global')}" class="mb-3">
+                                <p th:text="${err}" class="text-danger">Global error</p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="visually-hidden">Email address</label>
+                                <input id="username" name="username" type="text" class="form-control" placeholder="Username"
+                                       th:field="*{username}"
+                                       th:classappend="${#fields.hasErrors('username')  ? 'is-invalid' : ''}"
+                                       required autofocus>
+                                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback">
+                                    Please choose a valid name.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="visually-hidden">Password</label>
+                                <input id="password" name="password" type="password" class="form-control" placeholder="Password"
+                                       th:field="*{password}"
+                                       th:classappend="${#fields.hasErrors('password')  ? 'is-invalid' : ''}"
+                                       required>
+                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback">
+                                    Please choose a valid password.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="repeatedPassword" class="visually-hidden">Repeated Password</label>
+                                <input id="repeatedPassword" name="repeatedPassword" type="password" class="form-control" placeholder="Repeated Password"
+                                       th:field="*{repeatedPassword}"
+                                       th:classappend="${#fields.hasErrors('repeatedPassword')  ? 'is-invalid' : ''}"
+                                       required>
+                                <div th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}" class="invalid-feedback">
+                                    Please repeat the password.
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <button class="btn btn-lg btn-primary btn-block flex-fill" type="submit">Sign up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</main>
+<footer>
+    <th:block th:replace="fragments/footer :: footnote"/>
+</footer>
+<th:block th:replace="fragments/scripts :: global-js"/>
+</body>
+</html>

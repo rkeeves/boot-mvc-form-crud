@@ -1,0 +1,20 @@
+spring:
+
+  datasource:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASS}
+
+  sql:
+    init:
+      mode: always
+      platform: mysql
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  h2:
+    console:
+      enabled: false

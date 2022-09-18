@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Todo Create</title>
+    <meta name="description" content="Todo Create">
+    <th:block th:replace="fragments/head :: metas"/>
+    <th:block th:replace="fragments/head :: css"/>
+</head>
+<body>
+<header>
+    <th:block th:replace="fragments/header :: navbar"/>
+</header>
+<main>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-sm-10 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{~/todo/create}" method="post" th:object="${todoCreateDto}" novalidate>
+                            <div class="d-flex justify-content-center mb-3">
+                                <h1 class="h3">New Todo</h1>
+                            </div>
+                            <div th:if="${#fields.hasErrors('global')}" class="mb-3">
+                                <p th:text="${err}" class="text-danger">Global error</p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input id="name" name="name" type="text"
+                                       th:classappend="${#fields.hasErrors('name')  ? 'is-invalid' : ''}"
+                                       class="form-control form-control-sm"
+                                       th:field="*{name}"
+                                       placeholder="Your todo..."
+                                       required autofocus>
+                                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">
+                                    Please choose a valid name for your todo.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="priority" class="form-label">Priority</label>
+                                <select id="priority" name="priority"
+                                        th:classappend="${#fields.hasErrors('priority')  ? 'is-invalid' : ''}"
+                                        th:field="*{priority}"
+                                        class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+                                    <option value="-">Select a priority</option>
+                                    <option th:each="priorityValue : ${T(io.github.rkeeves.bootmvcformcrud.entity.Priority).values()}"
+                                            th:value="${priorityValue}" th:text="${priorityValue.name}"></option>
+                                </select>
+                                <div th:if="${#fields.hasErrors('priority')}" class="invalid-feedback">
+                                    Please choose a valid priority.
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <button class="btn btn-lg btn-primary btn-block flex-fill" type="submit">Create Todo</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</main>
+<footer>
+    <th:block th:replace="fragments/footer :: footnote"/>
+</footer>
+<th:block th:replace="fragments/scripts :: global-js"/>
+</body>
+</html>
